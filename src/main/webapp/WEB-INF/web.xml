@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+         version="2.5" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+         
+	<display-name>Archetype Created Web Application</display-name>
+	
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<servlet-class>fr.site.grimpe.vue.index</servlet-class>
+	</servlet>
+
+
+	<servlet>
+	
+		<servlet-name>GrimpeurController</servlet-name>
+		<servlet-class>fr.site.grimpe.controleur.GrimpeurController</servlet-class>
+		
+		
+<!-- 		 <multipart-config> -->
+<!--             <location>/Users/Secrétaire BIB/fichierTemp/</location> A adapter chez vous -->
+<!--             <max-file-size>10485760</max-file-size> 10 Mo -->
+<!--             <max-request-size>52428800</max-request-size> 5 x 10 Mo -->
+<!--             <file-size-threshold>1048576</file-size-threshold> 1 Mo -->
+<!--         </multipart-config> -->
+      
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	
+		
+	
+	<servlet-mapping>
+		<servlet-name>GrimpeurController</servlet-name>
+		<url-pattern>/ListeGrimpeur</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+<!-- 	    <jsp-config> -->
+<!--         <jsp-property-group> -->
+<!--              <url-pattern>*.jsp</url-pattern> -->
+<!--             <include-prelude>/WEB-INF/vue/taglibs.jsp</include-prelude> -->
+<!--         </jsp-property-group> -->
+<!--      </jsp-config>  -->
+
+<!-- 	<resource-ref> -->
+<!-- 		<description>postgreSQL Datasource</description> -->
+<!-- 		<res-ref-name>jdbc/postgres</res-ref-name> -->
+<!-- 		<res-type>javax.sql.DataSource</res-type> -->
+<!-- 		<res-auth>Container</res-auth> -->
+<!-- 	</resource-ref> -->
+	
+	</web-app>
