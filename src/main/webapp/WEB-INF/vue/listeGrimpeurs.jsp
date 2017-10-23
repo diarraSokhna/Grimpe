@@ -20,7 +20,8 @@
 <div class="jumbotron">
         <h1>Liste des grimpeurs </h1>
       </div>
-<c:if test="${ !empty form.resultat }"><p><c:out value=" ${ form.resultat }" /></p></c:if>
+<%-- <c:if test="${ !empty form.resultat }"><p><c:out value=" ${ form.resultat }" /></p></c:if> --%>
+       
        <form method="post" action="ListeGrimpeur">
 
 		
@@ -46,7 +47,7 @@
       <th>Prenom</th>
       <th>Adresse</th>
     </tr>
-    <c:forEach var = "grimpeur" items = "${ utilisateurs }">
+    <c:forEach var = "utilisateur" items = "${ utilisateurs }">
      <tr>
 <%--        <td><c:out value="${ grimpeur.nom}" /></td> --%>
 <%--        <td><c:out value="${ grimpeur.prenom}" /></td> --%>
@@ -54,9 +55,9 @@
 
 
 
-       <td><c:out value="${ grimpeur.nom }"/></td>
-       <td><c:out value="${ grimpeur.prenom}" /></td>
-       <td><c:out value="${ grimpeur.adresse}" /></td>
+       <td><c:out value="${ utilisateur.nom }"/></td>
+       <td><c:out value="${ utilisateur.prenom}" /></td>
+       <td><c:out value="${ utilisateur.adresse}" /></td>
    </tr>
    
     </c:forEach>
