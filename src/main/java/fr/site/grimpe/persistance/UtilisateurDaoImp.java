@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.site.grimpe.modele.BeanException;
 import fr.site.grimpe.modele.Utilisateur;
 
 public class UtilisateurDaoImp implements UtilisateurDao{
@@ -17,7 +18,7 @@ public class UtilisateurDaoImp implements UtilisateurDao{
 		this.daoFactory = daoFactory;
 	}
    
-	public void ajouter(Utilisateur utilisateur) {
+	public void ajouter(Utilisateur utilisateur) throws DaoException{
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		String sql;
@@ -32,13 +33,29 @@ public class UtilisateurDaoImp implements UtilisateurDao{
 		   
 		  //on execute la mise a jour des donnees
 		    preparedStatement.executeUpdate();
-		    } catch (SQLException e) {
-			  e.printStackTrace();
-	        }
+            conn.commit();
+        } catch (SQLException e) {
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException e2) {
+            }
+            throw new DaoException("Impossible de communiquer avec la base de données");
+        }
+        finally {
+            try {
+                if (conn != null) {
+                    conn.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de données");
+            }
+        }
 		
 	}
 
-	public List<Utilisateur> lister() {
+	public List<Utilisateur> lister() throws DaoException {
 		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 		Connection conn = null;
 		Statement statement = null;
@@ -67,12 +84,20 @@ public class UtilisateurDaoImp implements UtilisateurDao{
 		      
 		      //on ajoute les utilisateurs ds notre liste 
 		       utilisateurs.add(utilisateur);
-		    	
-		    }  
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Impossible de communiquer avec la base de données");
+		} catch (BeanException e) {
+			throw new DaoException("Les données de la base sont invalides");
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
-			e.printStackTrace();
+				throw new DaoException("Impossible de communiquer avec la base de données");
+			}
 		}
-		
 		return utilisateurs;
 	}
 

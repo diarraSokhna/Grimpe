@@ -21,7 +21,7 @@
         <h1>Liste des grimpeurs </h1>
       </div>
 <%-- <c:if test="${ !empty form.resultat }"><p><c:out value=" ${ form.resultat }" /></p></c:if> --%>
-       
+        <c:if test="${ !empty erreur }"><p style="color:red;"><c:out value="${ erreur }" /></p></c:if>
        <form method="post" action="ListeGrimpeur">
 
 		

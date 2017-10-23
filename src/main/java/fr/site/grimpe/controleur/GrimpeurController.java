@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import fr.site.grimpe.modele.Utilisateur;
+import fr.site.grimpe.persistance.DaoException;
 import fr.site.grimpe.persistance.DaoFactory;
 import fr.site.grimpe.persistance.UtilisateurDao;
 
@@ -41,7 +42,12 @@ public class GrimpeurController extends HttpServlet {
 		
 		
 		
-		request.setAttribute("utilisateurs", utilisateurDao.lister());
+	     try {
+	            request.setAttribute("utilisateurs", utilisateurDao.lister());
+	        }
+	        catch (DaoException e) {
+	            request.setAttribute("erreur", e.getMessage());
+	        }
 	    //on dit a notre servlet d'afficher la page jsp
 		this.getServletContext().getRequestDispatcher("/WEB-INF/vue/listeGrimpeurs.jsp").forward(request, response);
 	}
@@ -53,6 +59,7 @@ public class GrimpeurController extends HttpServlet {
 //   form.vérifierIndentifiants(request);
 //   request.setAttribute("form", form);
 		
+		 try {
 		//on crée un objet utilisateur
 		Utilisateur utilisateur =  new Utilisateur();
 		//on charge les données
@@ -66,7 +73,12 @@ public class GrimpeurController extends HttpServlet {
 		//on recupére tous les utilisateurs
 		request.setAttribute("utilisateurs", utilisateurDao.lister());
 		
-   this.getServletContext().getRequestDispatcher("/WEB-INF/vue/listeGrimpeurs.jsp").forward(request, response);
+		   }
+	        catch (Exception e) {
+	            request.setAttribute("erreur", e.getMessage());
+	        }
+		 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/vue/listeGrimpeurs.jsp").forward(request, response);
 		
 	}
 

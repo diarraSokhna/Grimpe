@@ -33,8 +33,9 @@ public class DaoFactory {
 	}
 	//getConnection qui recupére la connection
 	public Connection getConnection() throws SQLException {
-		
-		return DriverManager.getConnection(url, username, password);
+		    Connection conn = DriverManager.getConnection(url, username, password);
+	        conn.setAutoCommit(false);
+	        return conn; 
 	}
 
 	 // Récupération du Dao
